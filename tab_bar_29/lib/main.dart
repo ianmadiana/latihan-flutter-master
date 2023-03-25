@@ -1,9 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:faker/faker.dart';
 
 void main(List<String> args) {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -11,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: HomePage(),
     );
   }
@@ -35,10 +34,10 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: Text("Tab Bar"),
-        bottom: TabBar(controller: tabC, tabs: [
+        title: const Text("Whatsapp"),
+        bottom: TabBar(controller: tabC, tabs: const [
           Tab(
-            child: Icon(Icons.camera_alt),
+            child: Icon(Icons.groups),
           ),
           Tab(
             text: "Chats",
@@ -52,16 +51,33 @@ class _HomePageState extends State<HomePage>
         ]),
       ),
       body: TabBarView(controller: tabC, children: [
-        Center(
+        const Center(
           child: Text("Camera"),
         ),
-        Center(
-          child: Text("Chats"),
+        ListView.builder(
+          itemCount: 20,
+          itemBuilder: (context, index) {
+            return ListTile(
+                contentPadding: const EdgeInsets.all(10),
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://picsum.photos/id/${index + 50}/200/300"),
+                ),
+                title: Text(faker.person.name()),
+                subtitle: Text(
+                  faker.lorem.sentence(),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                trailing: Text(
+                  faker.date.time(),
+                ));
+          },
         ),
-        Center(
+        const Center(
           child: Text("Status"),
         ),
-        Center(
+        const Center(
           child: Text("Calls"),
         ),
       ]),
