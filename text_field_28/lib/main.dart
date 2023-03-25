@@ -26,7 +26,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _obscured = true;
+  TextEditingController emailC = TextEditingController();
+  TextEditingController passC = TextEditingController();
 
+  /*
+ Baris kode _obscured = !_obscured; berfungsi untuk membalik nilai dari variabel _obscured dari true ke false atau sebaliknya. Ini dilakukan dengan operator not (!), sehingga nilai dari _obscured akan selalu berubah setiap kali fungsi _toggle() dipanggil.
+ */
   void _toggle() {
     setState(() {
       _obscured = !_obscured;
@@ -44,6 +49,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           // EMAIL
           TextField(
+            controller: emailC,
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
@@ -61,6 +67,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 20),
           // PASSWORD
           TextField(
+            controller: passC,
             autocorrect: false,
             obscureText: _obscured,
             // keyboardType: TextInputType.visiblePassword,
@@ -73,7 +80,12 @@ class _HomePageState extends State<HomePage> {
               suffixIcon: InkWell(
                 onTap: _toggle,
                 child:
-                    Icon(_obscured ? Icons.visibility : Icons.visibility_off),
+                    //   if (_obscured) {
+                    //    Icons.visibility_off;
+                    // } else {
+                    //    Icons.visibility;
+                    // }
+                    Icon(_obscured ? Icons.visibility_off : Icons.visibility),
               ),
               labelText: "Password",
               hintText: "Enter your password",
@@ -83,8 +95,24 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(height: 50),
+          // LOGIN Button
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Login"),
+                  // show the value in alert dialog
+                  content:
+                      Text("Email: ${emailC.text} Password: ${passC.text}"),
+                  actions: [
+                    ElevatedButton(onPressed: () {}, child: const Text("Ok")),
+                    ElevatedButton(
+                        onPressed: () {}, child: const Text("Cancel")),
+                  ],
+                ),
+              );
+            },
             style: ElevatedButton.styleFrom(
                 padding: const EdgeInsetsDirectional.symmetric(
                     horizontal: 30, vertical: 20),
