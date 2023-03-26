@@ -57,9 +57,11 @@ class _HomePageState extends State<HomePage>
         ]),
       ),
       body: TabBarView(controller: tabC, children: [
+        // GROUPS
         const Center(
-          child: Text("Camera"),
+          child: Text("Groups"),
         ),
+        // CHATS
         ListView.builder(
           itemCount: 20,
           itemBuilder: (context, index) {
@@ -80,9 +82,11 @@ class _HomePageState extends State<HomePage>
                 ));
           },
         ),
+        // STATUS
         const Center(
           child: Text("Status"),
         ),
+        // CALLS
         const Center(
           child: Text("Calls"),
         ),
