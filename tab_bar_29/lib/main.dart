@@ -10,8 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp(
+      home: const HomePage(),
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green[700]),
     );
   }
 }
@@ -32,8 +33,13 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        // backgroundColor: Colors.teal,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         title: const Text("Whatsapp"),
         bottom: TabBar(controller: tabC, tabs: const [
           Tab(
