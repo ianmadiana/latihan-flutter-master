@@ -11,17 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomePage(),
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green[700]),
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+      // theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.green[700]),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({
-    super.key,
-  });
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -32,21 +29,57 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    int chats = 5;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: const Icon(Icons.add),
+        backgroundColor: Color(0xFF075E55),
+        child: const Icon(Icons.message),
       ),
       appBar: AppBar(
+        // leading: Icon(Icons.more_vert),
         // backgroundColor: Colors.teal,
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        title: const Text("Whatsapp"),
-        bottom: TabBar(controller: tabC, tabs: const [
+        actions: [
+          Row(
+            // mainAxisSize: MainAxisSize.min,
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.camera_alt_outlined),
+              SizedBox(width: 20),
+              Icon(Icons.search),
+              SizedBox(width: 15),
+              Icon(Icons.more_vert),
+            ],
+          )
+        ],
+        backgroundColor: Color(0xFF075E55),
+        title: Text("Whatsapp Botleg"),
+        bottom: TabBar(controller: tabC, tabs: [
           Tab(
             child: Icon(Icons.groups),
           ),
           Tab(
-            text: "Chats",
+            child: Row(
+              children: [
+                Text(
+                  "Chats ",
+                ),
+                Spacer(),
+                Container(
+                  alignment: Alignment.center,
+                  height: 25,
+                  width: 25,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25 / 2)),
+                  child: Text(
+                    "${chats * 20}",
+                    style: TextStyle(fontSize: 8, color: Colors.black),
+                  ),
+                )
+              ],
+            ),
           ),
           Tab(
             text: "Status",
@@ -65,21 +98,42 @@ class _HomePageState extends State<HomePage>
         ListView.builder(
           itemCount: 20,
           itemBuilder: (context, index) {
-            return ListTile(
-                contentPadding: const EdgeInsets.all(10),
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://picsum.photos/id/${index + 50}/200/300"),
-                ),
-                title: Text(faker.person.name()),
-                subtitle: Text(
-                  faker.lorem.sentence(),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-                trailing: Text(
-                  faker.date.time(),
-                ));
+            return InkWell(
+              onTap: () {},
+              child: ListTile(
+                  contentPadding: const EdgeInsets.all(10),
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://picsum.photos/id/${index + 50}/200/300"),
+                  ),
+                  title: Text(faker.person.name()),
+                  subtitle: Text(
+                    faker.lorem.sentence(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        faker.date.time(),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 28,
+                        height: 28,
+                        child: Text(
+                          "$chats",
+                          style: TextStyle(color: Colors.white, fontSize: 10),
+                        ),
+                        decoration: BoxDecoration(
+                            color: Color(0xFF0FCE5E),
+                            borderRadius: BorderRadius.circular(28 / 2)),
+                      ),
+                    ],
+                  )),
+            );
           },
         ),
         // STATUS
