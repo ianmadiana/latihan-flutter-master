@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Http Get"),
+        title: const Text("Http Put/Patch"),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
