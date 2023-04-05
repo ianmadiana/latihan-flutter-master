@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:future_builder/models/user.dart';
 import 'package:http/http.dart' as http;
 
 void main(List<String> args) {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  List<Map<String, dynamic>> allUser = [];
+  List<UserModel> allUser = [];
 
   // fungsi future
   Future getAllData() async {
@@ -30,10 +31,11 @@ class HomePage extends StatelessWidget {
     // await Future.delayed(Duration(seconds: 4));
 
     try {
-      var response = await http.get(Uri.parse("https://reqres.in/api/users"));
+      var response =
+          await http.get(Uri.parse("https://reqres.in/api/users?page=2"));
       List data = (json.decode(response.body) as Map<String, dynamic>)["data"];
       data.forEach((element) {
-        allUser.add(element);
+        allUser.add(UserModel.fromJson(element));
         print(allUser);
       });
     } catch (e) {
@@ -56,15 +58,20 @@ class HomePage extends StatelessWidget {
                 child: Text("Get all data please wait..."),
               );
             } else {
+              if (allUser.length == 0) {
+                return Center(
+                  child: Text("Tidak ada data"),
+                );
+              }
               return ListView.builder(
                 itemCount: allUser.length,
                 itemBuilder: (context, index) => ListTile(
                   leading: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage("${allUser[index]['avatar']}")),
+                      backgroundImage: NetworkImage(allUser[index].avatar)),
                   title: Text(
-                      "${allUser[index]['first_name']} ${allUser[index]['last_name']}"),
-                  subtitle: Text("${allUser[index]['email']}"),
+                      "${allUser[index].firstName} ${allUser[index].lastName}"),
+                  subtitle: Text(allUser[index].email),
+                  trailing: Text("${allUser[index].id}"),
                 ),
               );
             }
