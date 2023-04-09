@@ -7,3 +7,7 @@ A new Flutter project.
     - avatar glow
     - http
     - convex bottom nav bar
+    - introduction screen
+    - lottie
+
+![Info BMKG App](./Screenshot_1681034229.png)

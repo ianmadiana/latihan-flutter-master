@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:info_gempa_bmkg/pages/home_page.dart';
+import 'package:info_gempa_bmkg/pages/introduction_page.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -10,9 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: "Info Gempa BMKG",
-      home: HomePage(),
+      home: IntroductionPage(),
     );
   }
 }
